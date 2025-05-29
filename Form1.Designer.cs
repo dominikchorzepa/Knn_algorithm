@@ -28,19 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
+            WynikiAlgorytmu = new ListBox();
+            buttonGenerujProbki = new Button();
             SuspendLayout();
+            // 
+            // WynikiAlgorytmu
+            // 
+            WynikiAlgorytmu.FormattingEnabled = true;
+            WynikiAlgorytmu.Location = new Point(40, 156);
+            WynikiAlgorytmu.Name = "WynikiAlgorytmu";
+            WynikiAlgorytmu.Size = new Size(721, 244);
+            WynikiAlgorytmu.TabIndex = 0;
+            // 
+            // buttonGenerujProbki
+            // 
+            buttonGenerujProbki.Location = new Point(40, 101);
+            buttonGenerujProbki.Name = "buttonGenerujProbki";
+            buttonGenerujProbki.Size = new Size(121, 29);
+            buttonGenerujProbki.TabIndex = 1;
+            buttonGenerujProbki.Text = "Generuj próbki";
+            buttonGenerujProbki.UseVisualStyleBackColor = true;
+            buttonGenerujProbki.Click += buttonGenerujProbki_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(buttonGenerujProbki);
+            Controls.Add(WynikiAlgorytmu);
             Name = "Form1";
-            Text = "Form1";
+            Text = "Algorytm Knn";
             Load += Form1_Load;
             ResumeLayout(false);
         }
 
         #endregion
+
+        private ListBox WynikiAlgorytmu;
+        private Button buttonGenerujProbki;
     }
 }
