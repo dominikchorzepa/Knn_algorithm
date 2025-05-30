@@ -19,6 +19,7 @@ namespace Knn_algorithm
             try
             {
                 var probki = Probka.WczytajBazeDanych(sciezka);
+                Normalizacja(probki);
 
                 WynikiAlgorytmu.Items.Clear();
 
@@ -29,6 +30,41 @@ namespace Knn_algorithm
             } catch (Exception ex)
             {
                 MessageBox.Show("B³¹d podczas wczytywania: " + ex.Message);
+            }
+        }
+
+        public static void Normalizacja(List<Probka> probki)
+        {
+            int liczbaWartosci = probki[0].Wartosci.Length;
+            double[] minWartosc = new double[liczbaWartosci];
+            double[] maxWartosc = new double[liczbaWartosci];
+
+            for (int i = 0; i < liczbaWartosci; i++)
+            {
+                minWartosc[i] = probki[0].Wartosci[i];
+                maxWartosc[i] = probki[0].Wartosci[i];
+            }
+
+            foreach (var p in probki)
+            {
+                for (int i = 0; i < liczbaWartosci; i++)
+                {
+                    if (p.Wartosci[i] < minWartosc[i])
+                    {
+                        minWartosc[i] = p.Wartosci[i];
+                    }
+                    if (p.Wartosci[i] > maxWartosc[i])
+                    {
+                        maxWartosc[i] = p.Wartosci[i];
+                    }
+                }
+            }
+            foreach (var p in probki)
+            {
+                for (int i = 0; i < liczbaWartosci; i++)
+                {
+                    p.Wartosci[i] = (p.Wartosci[i] - minWartosc[i]) / (maxWartosc[i] - minWartosc[i]);
+                }
             }
         }
 

@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace Knn_algorithm
 {
-    internal class Probka
+    public class Probka
     {
         public double[] Wartosci;
         public int Klasa;
