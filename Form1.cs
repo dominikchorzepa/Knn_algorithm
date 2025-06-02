@@ -14,7 +14,7 @@ namespace Knn_algorithm
 
         private void buttonGenerujProbki_Click(object sender, EventArgs e)
         {
-            string sciezka = "iris.txt";
+            string sciezka = @"../../.././iris.txt";
 
             try
             {
@@ -23,9 +23,32 @@ namespace Knn_algorithm
 
                 WynikiAlgorytmu.Items.Clear();
 
-                foreach (var p in probki)
+                if (!int.TryParse(textBoxParametrK.Text, out int k))
                 {
-                    WynikiAlgorytmu.Items.Add("Wartoœci: " + string.Join(", ", p.Wartosci) + " Klasa: " + p.Klasa);
+                    MessageBox.Show("Nieprawid³owy parametr k!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                Metryka wybranaMetryka;
+
+                switch (comboBoxMetryka.SelectedItem?.ToString())
+                {
+                    case "Euklidesowa":
+                        wybranaMetryka = Euklidesowa;
+                        break;
+                    case "Manhattan":
+                        wybranaMetryka = Manhattan;
+                        break;
+                    case "Czebyszewa":
+                        wybranaMetryka = Czebyszew;
+                        break;
+                    case "Z logarytmem":
+                        wybranaMetryka = zLogarytmem;
+                        break;
+                    default:
+                        MessageBox.Show("Wybierz metrykê!");
+                        return;
+
                 }
             }
             catch (Exception ex)
@@ -68,7 +91,7 @@ namespace Knn_algorithm
                 }
             }
         }
-        
+
         public delegate double Metryka(double[] A, double[] B);
 
         static double Euklidesowa(double[] A, double[] B)
@@ -130,9 +153,73 @@ namespace Knn_algorithm
             return wynik;
         }
 
+        public int KnnKlasyfikuj(Probka testowa, List<Probka> uczace, int k, Metryka metryka)
+        {
+            List<SasiedniaProbka> sasiedzi = new List<SasiedniaProbka>();
+
+            for (int i = 0; i < uczace.Count; i++)
+            {
+                double odleglosc = metryka(testowa.Wartosci, uczace[i].Wartosci);
+                sasiedzi.Add(new SasiedniaProbka(odleglosc, uczace[i].Klasa));
+            }
+
+            for (int i = 0; i < sasiedzi.Count - 1; i++)
+            {
+                for (int j = i + 1; j < sasiedzi.Count; j++)
+                {
+                    if (sasiedzi[j].Odleglosc < sasiedzi[i].Odleglosc)
+                    {
+                        SasiedniaProbka temp = sasiedzi[i];
+                        sasiedzi[i] = sasiedzi[j];
+                        sasiedzi[j] = temp;
+                    }
+                }
+            }
+
+            int[] licznikKlas = new int[4];
+
+            for (int i = 0; i < k; i++)
+            {
+                int klasa = sasiedzi[i].Klasa;
+                licznikKlas[klasa]++;
+            }
+
+            int najczestszaKlasa = 0;
+            int maxLiczba = licznikKlas[0];
+            bool remis = false;
+
+            for (int i = 1; i < licznikKlas.Length; i++)
+            {
+                if (licznikKlas[i] > maxLiczba)
+                {
+                    maxLiczba = licznikKlas[i];
+                    najczestszaKlasa = i;
+                    remis = false;
+                }
+                else if (licznikKlas[i] == maxLiczba)
+                {
+                    remis = true;
+                }
+            }
+
+            if (remis)
+            {
+                return -1;
+            }
+            else
+            {
+                return najczestszaKlasa;
+            }
+        }
+
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            comboBox1.SelectedItem = null;
+    
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -30,54 +30,91 @@
         {
             WynikiAlgorytmu = new ListBox();
             buttonGenerujProbki = new Button();
-            comboBox1 = new ComboBox();
+            comboBoxMetryka = new ComboBox();
+            labelWartoscParametruK = new Label();
+            textBoxParametrK = new TextBox();
+            labelMetryka = new Label();
             SuspendLayout();
             // 
             // WynikiAlgorytmu
             // 
             WynikiAlgorytmu.FormattingEnabled = true;
-            WynikiAlgorytmu.Location = new Point(40, 156);
+            WynikiAlgorytmu.Location = new Point(12, 74);
             WynikiAlgorytmu.Name = "WynikiAlgorytmu";
-            WynikiAlgorytmu.Size = new Size(721, 244);
+            WynikiAlgorytmu.Size = new Size(1099, 244);
             WynikiAlgorytmu.TabIndex = 0;
             // 
             // buttonGenerujProbki
             // 
-            buttonGenerujProbki.Location = new Point(40, 101);
+            buttonGenerujProbki.Location = new Point(579, 20);
             buttonGenerujProbki.Name = "buttonGenerujProbki";
-            buttonGenerujProbki.Size = new Size(121, 29);
+            buttonGenerujProbki.Size = new Size(100, 29);
             buttonGenerujProbki.TabIndex = 1;
-            buttonGenerujProbki.Text = "Generuj próbki";
+            buttonGenerujProbki.Text = "Walidacja";
             buttonGenerujProbki.UseVisualStyleBackColor = true;
             buttonGenerujProbki.Click += buttonGenerujProbki_Click;
             // 
-            // comboBox1
+            // comboBoxMetryka
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(339, 77);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(151, 28);
-            comboBox1.TabIndex = 2;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBoxMetryka.FormattingEnabled = true;
+            comboBoxMetryka.Items.AddRange(new object[] { "Euklidesowa", "Manhattan", "Czebyszewa", "Z logarytmem" });
+            comboBoxMetryka.Location = new Point(387, 21);
+            comboBoxMetryka.Name = "comboBoxMetryka";
+            comboBoxMetryka.Size = new Size(151, 28);
+            comboBoxMetryka.TabIndex = 2;
+            comboBoxMetryka.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            // 
+            // labelWartoscParametruK
+            // 
+            labelWartoscParametruK.AutoSize = true;
+            labelWartoscParametruK.Location = new Point(12, 24);
+            labelWartoscParametruK.Name = "labelWartoscParametruK";
+            labelWartoscParametruK.Size = new Size(149, 20);
+            labelWartoscParametruK.TabIndex = 3;
+            labelWartoscParametruK.Text = "Wartość parametru k:";
+            labelWartoscParametruK.Click += label1_Click;
+            // 
+            // textBoxParametrK
+            // 
+            textBoxParametrK.Location = new Point(176, 22);
+            textBoxParametrK.Name = "textBoxParametrK";
+            textBoxParametrK.Size = new Size(101, 27);
+            textBoxParametrK.TabIndex = 4;
+            // 
+            // labelMetryka
+            // 
+            labelMetryka.AutoSize = true;
+            labelMetryka.Location = new Point(303, 25);
+            labelMetryka.Name = "labelMetryka";
+            labelMetryka.Size = new Size(65, 20);
+            labelMetryka.TabIndex = 5;
+            labelMetryka.Text = "Metryka:";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(comboBox1);
+            ClientSize = new Size(1151, 450);
+            Controls.Add(labelMetryka);
+            Controls.Add(textBoxParametrK);
+            Controls.Add(labelWartoscParametruK);
+            Controls.Add(comboBoxMetryka);
             Controls.Add(buttonGenerujProbki);
             Controls.Add(WynikiAlgorytmu);
             Name = "Form1";
             Text = "Algorytm Knn";
             Load += Form1_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private ListBox WynikiAlgorytmu;
         private Button buttonGenerujProbki;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxMetryka;
+        private Label labelWartoscParametruK;
+        private TextBox textBoxParametrK;
+        private Label labelMetryka;
     }
 }
