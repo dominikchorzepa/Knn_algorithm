@@ -14,7 +14,7 @@ namespace Knn_algorithm
 
         private void buttonGenerujProbki_Click(object sender, EventArgs e)
         {
-            string sciezka = @"../../.././iris.txt";
+            string sciezka = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "iris.txt");
 
             try
             {
@@ -42,6 +42,14 @@ namespace Knn_algorithm
                     case "Czebyszewa":
                         wybranaMetryka = Czebyszew;
                         break;
+                    case "Minkowski":
+                        if (!int.TryParse(textBoxParametrP.Text, out int p))
+                {
+                    MessageBox.Show("Nieprawid³owy parametr p!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                        wybranaMetryka = (a, b) => Minkowski(a, b, p);
+                        break;
                     case "Z logarytmem":
                         wybranaMetryka = zLogarytmem;
                         break;
@@ -50,6 +58,9 @@ namespace Knn_algorithm
                         return;
 
                 }
+
+                double dokladnosc = Test1KontraReszta(probki, k, wybranaMetryka);
+                WynikiAlgorytmu.Items.Add("Dok³adnoœæ klasyfikacji (1 kontra reszta): " + Math.Round(dokladnosc,2) + "%");
             }
             catch (Exception ex)
             {
@@ -139,7 +150,7 @@ namespace Knn_algorithm
             {
                 wynik += Math.Pow(Math.Abs(A[i] - B[i]), p);
             }
-            wynik = Math.Pow(wynik, p / 2);
+            wynik = Math.Pow(wynik, 1.0 / p);
             return wynik;
         }
 
@@ -210,6 +221,38 @@ namespace Knn_algorithm
             {
                 return najczestszaKlasa;
             }
+        }
+
+        public double Test1KontraReszta(List<Probka> probki, int k, Metryka metryka)
+        {
+            int poprawne = 0;
+            int liczbaProb = probki.Count;
+
+            for (int walid_nr = 0; walid_nr < liczbaProb; walid_nr++)
+            {
+                Probka testowa = probki[walid_nr];
+                List<Probka> uczace = new List<Probka>();
+
+                for (int i = 0; i < liczbaProb; i++)
+                {
+                    if (i != walid_nr)
+                    {
+                        uczace.Add(probki[i]);
+                    }
+                }
+
+                int przewidzianaKlasa = KnnKlasyfikuj(testowa, uczace, k, metryka);
+
+                if (przewidzianaKlasa == testowa.Klasa)
+                {
+                    poprawne++;
+                }
+
+                WynikiAlgorytmu.Items.Add("Klasa próbki " + (walid_nr + 1) + ": " + testowa.Klasa + " | Przewidziana klasa: " + przewidzianaKlasa);
+            }
+
+            double dokladnosc = (double)poprawne / liczbaProb * 100.0;
+            return dokladnosc;
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)

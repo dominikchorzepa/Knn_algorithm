@@ -28,7 +28,7 @@ x86/
 [Aa][Rr][Mm]64/
 bld/
 [Bb]in/
-!bin/Debug/net8.0-windows/iris.txt
+bin/Debug/net8.0-windows/iris.txt
 [Oo]bj/
 [Oo]ut/
 [Ll]og/

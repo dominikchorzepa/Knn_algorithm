@@ -34,6 +34,8 @@
             labelWartoscParametruK = new Label();
             textBoxParametrK = new TextBox();
             labelMetryka = new Label();
+            labelParametrP = new Label();
+            textBoxParametrP = new TextBox();
             SuspendLayout();
             // 
             // WynikiAlgorytmu
@@ -41,7 +43,7 @@
             WynikiAlgorytmu.FormattingEnabled = true;
             WynikiAlgorytmu.Location = new Point(12, 74);
             WynikiAlgorytmu.Name = "WynikiAlgorytmu";
-            WynikiAlgorytmu.Size = new Size(1099, 244);
+            WynikiAlgorytmu.Size = new Size(1023, 244);
             WynikiAlgorytmu.TabIndex = 0;
             // 
             // buttonGenerujProbki
@@ -57,7 +59,7 @@
             // comboBoxMetryka
             // 
             comboBoxMetryka.FormattingEnabled = true;
-            comboBoxMetryka.Items.AddRange(new object[] { "Euklidesowa", "Manhattan", "Czebyszewa", "Z logarytmem" });
+            comboBoxMetryka.Items.AddRange(new object[] { "Euklidesowa", "Manhattan", "Czebyszewa", "Minkowski", "Z logarytmem" });
             comboBoxMetryka.Location = new Point(387, 21);
             comboBoxMetryka.Name = "comboBoxMetryka";
             comboBoxMetryka.Size = new Size(151, 28);
@@ -90,11 +92,29 @@
             labelMetryka.TabIndex = 5;
             labelMetryka.Text = "Metryka:";
             // 
+            // labelParametrP
+            // 
+            labelParametrP.AutoSize = true;
+            labelParametrP.Location = new Point(728, 24);
+            labelParametrP.Name = "labelParametrP";
+            labelParametrP.Size = new Size(167, 20);
+            labelParametrP.TabIndex = 6;
+            labelParametrP.Text = "Parametr p (Minkowski):";
+            // 
+            // textBoxParametrP
+            // 
+            textBoxParametrP.Location = new Point(910, 22);
+            textBoxParametrP.Name = "textBoxParametrP";
+            textBoxParametrP.Size = new Size(125, 27);
+            textBoxParametrP.TabIndex = 7;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1151, 450);
+            ClientSize = new Size(1073, 370);
+            Controls.Add(textBoxParametrP);
+            Controls.Add(labelParametrP);
             Controls.Add(labelMetryka);
             Controls.Add(textBoxParametrK);
             Controls.Add(labelWartoscParametruK);
@@ -116,5 +136,7 @@
         private Label labelWartoscParametruK;
         private TextBox textBoxParametrK;
         private Label labelMetryka;
+        private Label labelParametrP;
+        private TextBox textBoxParametrP;
     }
 }
