@@ -44,10 +44,10 @@ namespace Knn_algorithm
                         break;
                     case "Minkowski":
                         if (!int.TryParse(textBoxParametrP.Text, out int p))
-                {
-                    MessageBox.Show("Nieprawid³owy parametr p!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
+                        {
+                            MessageBox.Show("Nieprawid³owy parametr p!", "B³¹d", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                         wybranaMetryka = (a, b) => Minkowski(a, b, p);
                         break;
                     case "Z logarytmem":
